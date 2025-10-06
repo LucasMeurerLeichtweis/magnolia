@@ -1,99 +1,113 @@
 <?php
 
-require_once __DIR__."\..\bd\MySQL.php";
+require_once __DIR__ . "\..\bd\MySQL.php";
 
-class Produto{
+class Produto {
 
-    public int $idProduto;
-    public int $idCategoria;
+    private int $idProduto;
+    private int $idCategoria;
+    private string $nome;
+    private string $descricaoProduto;
+    private float $preco;
+    private string $foto;
+    private int $status; 
 
-    public function __construct(public string $nome, public string $descricaoProduto, public float $preco, public string $foto) {
+    public function __construct(
+        private string $nome,
+        private string $descricaoProduto,
+        private float $preco,
+        private string $foto,
+        private int $status = 1
+    ){     
     }
 
-    public function setIdProduto(int $idProduto):void{
-        $this->idProduto = $idProduto;
-    }
-
-    public function getIdProduto():int{
+    public function getIdProduto(): int {
         return $this->idProduto;
     }
 
-    public function setIdCategoria(int $idProduto):void{
-        $this->idCategoria = $idCategoria;
-    }
-
-    public function getIdCategoria():int{
+    public function getIdCategoria(): int {
         return $this->idCategoria;
     }
 
-    
-    public function setNome(string $nome):void{
-        $this->nome = $nome;
-    }
-
-    public function setDescricaoProduto(string $descricaoProduto):void{
-        $this->descricaoProduto = $descricaoProduto;
-    }
-
-    public function setPreco(float $preco):void{
-        $this->preco = $preco;
-    }
-
-    public function setFoto(string $foto):void{
-        $this->foto = $foto;
-    }
-
-    //------------------------------------------------------------
-
-
-    public function getNome():string{
+    public function getNome(): string {
         return $this->nome;
     }
 
-    public function getDescricaoProduto():string{
+    public function getDescricaoProduto(): string {
         return $this->descricaoProduto;
     }
 
-    public function getPreco():float{
+    public function getPreco(): float {
         return $this->preco;
     }
 
-    public function getFoto():string{
+    public function getFoto(): string {
         return $this->foto;
     }
 
-    //-----------------------------------------------------------
+    public function getStatus(): int {
+        return $this->status;
+    }
 
-     public function save():bool {
+    public function setIdProduto(int $idProduto): void {
+        $this->idProduto = $idProduto;
+    }
+
+    public function setIdCategoria(int $idCategoria): void {
+        $this->idCategoria = $idCategoria;
+    }
+
+    public function setNome(string $nome): void {
+        $this->nome = $nome;
+    }
+
+    public function setDescricaoProduto(string $descricaoProduto): void {
+        $this->descricaoProduto = $descricaoProduto;
+    }
+
+    public function setPreco(float $preco): void {
+        $this->preco = $preco;
+    }
+
+    public function setFoto(string $foto): void {
+        $this->foto = $foto;
+    }
+
+    public function setStatus(int $status): void {
+        $this->status = $status;
+    }
+
+
+    public function save(): bool {
         $conexao = new MySQL();
-        $sql = "INSERT INTO produto (nome, descricao, preco, foto, idCategoria) 
+        $sql = "INSERT INTO produto (nome, descricaoProduto, preco, foto, idCategoria, status) 
                 VALUES (
                     '{$this->nome}', 
                     '{$this->descricaoProduto}', 
                     '{$this->preco}', 
                     '{$this->foto}', 
-                    '{$this->idCategoria}'
+                    '{$this->idCategoria}', 
+                    '{$this->status}'
                 )";
         return $conexao->executa($sql);
     }
 
-
     public static function findAll(): array {
         $conexao = new MySQL();
-        $sql = "SELECT * FROM produto";
+        $sql = "SELECT * FROM produto WHERE status = 1";
         $resultados = $conexao->consulta($sql);
-        $produtos = array();
+        $produtos = [];
 
         foreach ($resultados as $resultado) {
-        
             $p = new Produto(
                 $resultado['nome'], 
-                $resultado['descricao'], 
+                $resultado['descricaoProduto'], 
                 (float) $resultado['preco'], 
-                $resultado['foto']
+                $resultado['foto'], 
+                (int) $resultado['status']
             );
-            $p->idProduto = $resultado['idProduto'];
-            $p->idCategoria = $resultado['idCategoria'];
+            $p->setIdProduto($resultado['idProduto']);
+            $p->setIdCategoria($resultado['idCategoria']);
             $produtos[] = $p;
         }
 
@@ -102,19 +116,20 @@ class Produto{
 
     public static function findAllByCategoria(int $idCategoria): array {
         $conexao = new MySQL();
-        $sql = "SELECT * FROM produto WHERE idCategoria = {$idCategoria}";
+        $sql = "SELECT * FROM produto WHERE idCategoria = {$idCategoria} AND status = 1";
         $resultados = $conexao->consulta($sql);
-        $produtos = array();
+        $produtos = [];
 
         foreach ($resultados as $resultado) {
             $p = new Produto(
                 $resultado['nome'],
-                $resultado['descricao'],
+                $resultado['descricaoProduto'],
                 (float) $resultado['preco'],
-                $resultado['foto']
+                $resultado['foto'],
+                (int) $resultado['status']
             );
-            $p->idProduto = $resultado['idProduto'];
-            $p->idCategoria = $resultado['idCategoria'];
+            $p->setIdProduto($resultado['idProduto']);
+            $p->setIdCategoria($resultado['idCategoria']);
             $produtos[] = $p;
         }
 
@@ -122,25 +137,27 @@ class Produto{
     }
 
     public static function find(int $idProduto): ?Produto {
-    $conexao = new MySQL();
-    $sql = "SELECT * FROM produto WHERE idProduto = {$idProduto}";
-    $resultados = $conexao->consulta($sql);
+        $conexao = new MySQL();
+        $sql = "SELECT * FROM produto WHERE idProduto = {$idProduto} LIMIT 1";
+        $resultados = $conexao->consulta($sql);
 
-    if (count($resultados) > 0) {
-        $resultado = $resultados[0];
-        $p = new Produto(
-            $resultado['nome'],
-            $resultado['descricao'],
-            (float) $resultado['preco'],
-            $resultado['foto']
-        );
-        $p->idProduto = $resultado['idProduto'];
-        $p->idCategoria = $resultado['idCategoria'];
-        return $p;
-    }
+        if (count($resultados) > 0) {
+            $resultado = $resultados[0];
+            $p = new Produto(
+                $resultado['nome'],
+                $resultado['descricaoProduto'],
+                (float) $resultado['preco'],
+                $resultado['foto'],
+                (int) $resultado['status']
+            );
+            $p->setIdProduto($resultado['idProduto']);
+            $p->setIdCategoria($resultado['idCategoria']);
+            return $p;
+        }
 
         return null;
     }
+
 
     public function delete(): bool {
         $conexao = new MySQL();
@@ -148,19 +165,22 @@ class Produto{
         return $conexao->executa($sql);
     }
 
-    public function update(): bool {
+    public function ocultar(): bool {
         $conexao = new MySQL();
-        $sql = "UPDATE produto 
-            SET nome = '{$this->nome}', 
-                descricao = '{$this->descricaoProduto}', 
-                preco = '{$this->preco}', 
-                foto = '{$this->foto}', 
-                idCategoria = '{$this->idCategoria}'
-            WHERE idProduto = {$this->idProduto}";
+        $sql = "UPDATE produto SET status = 0 WHERE idProduto = {$this->idProduto}";
         return $conexao->executa($sql);
     }
 
-
-
-
+    public function update(): bool {
+        $conexao = new MySQL();
+        $sql = "UPDATE produto 
+                SET nome = '{$this->nome}', 
+                    descricaoProduto = '{$this->descricaoProduto}', 
+                    preco = '{$this->preco}', 
+                    foto = '{$this->foto}', 
+                    idCategoria = '{$this->idCategoria}',
+                    status = '{$this->status}'
+                WHERE idProduto = {$this->idProduto}";
+        return $conexao->executa($sql);
+    }
 }
