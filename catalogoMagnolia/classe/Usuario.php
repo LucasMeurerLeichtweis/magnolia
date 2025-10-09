@@ -45,7 +45,7 @@ class Usuario{
         $conexao = new MySQL();
         $this->senha = password_hash($this->senha,PASSWORD_BCRYPT); 
         if(isset($this->idUsuario)){
-            $sql = "UPDATE usuarios SET email = '{$this->email}', senha = '{$this->senha}', nome = '{$this->nome}' WHERE idUsuario = {$this->idUsuario}";
+            $sql = "UPDATE usuario SET email = '{$this->email}', senha = '{$this->senha}', nome = '{$this->nome}' WHERE idUsuario = {$this->idUsuario}";
         }else{
             $sql = "INSERT INTO usuario (email,senha,nome) VALUES ('{$this->email}','{$this->senha}','{$this->nome}')";
         }
@@ -70,7 +70,7 @@ class Usuario{
         session_start();
         $_SESSION['idUsuario'] = $resultados[0]['idUsuario'];
         $_SESSION['email'] = $resultados[0]['email'];
-        $_SESSION['nome'] = $resultado[0]['nome'];
+        $_SESSION['nome'] = $resultados[0]['nome'];
         return true;
     } else {
         return false;

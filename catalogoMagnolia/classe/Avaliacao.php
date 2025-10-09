@@ -5,11 +5,6 @@ require_once __DIR__ . "\..\bd\MySQL.php";
 class Avaliacao {
 
     private int $idAvaliacao;
-    private int $nota;
-    private string $descricaoAvaliacao;
-    private string $data;
-    private int $idProduto;
-    private int $idUsuario;
 
     public function __construct(
         private int $nota,

@@ -36,8 +36,20 @@ class ProdutoAroma {
     public static function findAll(): array {
         $conexao = new MySQL();
         $sql = "SELECT * FROM produto_aroma";
-        return $conexao->consulta($sql);
+        $resultados = $conexao->consulta($sql);
+        $produtoAromas = [];
+
+        foreach ($resultados as $resultado) {
+            $pa = new ProdutoAroma(
+                $resultado['idProduto'],
+                $resultado['idAroma']
+            );
+            $produtoAromas[] = $pa;
+        }
+
+        return $produtoAromas;
     }
+
 
     public static function findByProduto(int $idProduto): array {
         $conexao = new MySQL();

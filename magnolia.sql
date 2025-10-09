@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/10/2025 às 22:02
+-- Tempo de geração: 09/10/2025 às 11:38
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,8 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `magnolia`
 --
-CREATE DATABASE IF NOT EXISTS `magnolia` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `magnolia`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `aroma`
+--
+
+CREATE TABLE `aroma` (
+  `idAroma` int(11) NOT NULL,
+  `nome` varchar(250) NOT NULL,
+  `descricao` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -52,6 +62,19 @@ CREATE TABLE `categoria` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `imagem`
+--
+
+CREATE TABLE `imagem` (
+  `idImagem` int(11) NOT NULL,
+  `idProduto` int(11) NOT NULL,
+  `imagem` varchar(250) NOT NULL,
+  `fotoCapa` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `produto`
 --
 
@@ -60,8 +83,19 @@ CREATE TABLE `produto` (
   `nome` varchar(250) NOT NULL,
   `descricaoProduto` text NOT NULL,
   `preco` decimal(15,2) NOT NULL,
-  `foto` varchar(250) NOT NULL,
+  `status` tinyint(4) NOT NULL,
   `idCategoria` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `produto_aroma`
+--
+
+CREATE TABLE `produto_aroma` (
+  `idProduto` int(11) NOT NULL,
+  `idAroma` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -82,6 +116,12 @@ CREATE TABLE `usuario` (
 --
 
 --
+-- Índices de tabela `aroma`
+--
+ALTER TABLE `aroma`
+  ADD PRIMARY KEY (`idAroma`);
+
+--
 -- Índices de tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
@@ -96,11 +136,25 @@ ALTER TABLE `categoria`
   ADD PRIMARY KEY (`idCategoria`);
 
 --
+-- Índices de tabela `imagem`
+--
+ALTER TABLE `imagem`
+  ADD PRIMARY KEY (`idImagem`),
+  ADD KEY `idProduto` (`idProduto`);
+
+--
 -- Índices de tabela `produto`
 --
 ALTER TABLE `produto`
   ADD PRIMARY KEY (`idProduto`),
   ADD KEY `idCategoria` (`idCategoria`);
+
+--
+-- Índices de tabela `produto_aroma`
+--
+ALTER TABLE `produto_aroma`
+  ADD KEY `idProduto` (`idProduto`),
+  ADD KEY `idAroma` (`idAroma`);
 
 --
 -- Índices de tabela `usuario`
@@ -113,6 +167,12 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de tabela `aroma`
+--
+ALTER TABLE `aroma`
+  MODIFY `idAroma` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
@@ -123,6 +183,12 @@ ALTER TABLE `avaliacao`
 --
 ALTER TABLE `categoria`
   MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `imagem`
+--
+ALTER TABLE `imagem`
+  MODIFY `idImagem` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
@@ -148,10 +214,23 @@ ALTER TABLE `avaliacao`
   ADD CONSTRAINT `avaliacao_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
+-- Restrições para tabelas `imagem`
+--
+ALTER TABLE `imagem`
+  ADD CONSTRAINT `imagem_ibfk_1` FOREIGN KEY (`idProduto`) REFERENCES `produto` (`idProduto`);
+
+--
 -- Restrições para tabelas `produto`
 --
 ALTER TABLE `produto`
   ADD CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`);
+
+--
+-- Restrições para tabelas `produto_aroma`
+--
+ALTER TABLE `produto_aroma`
+  ADD CONSTRAINT `produto_aroma_ibfk_1` FOREIGN KEY (`idProduto`) REFERENCES `produto` (`idProduto`),
+  ADD CONSTRAINT `produto_aroma_ibfk_2` FOREIGN KEY (`idAroma`) REFERENCES `aroma` (`idAroma`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
