@@ -1,17 +1,18 @@
 <?php
-require_once __DIR__."/classes/Item.php";
-$itens = Item::findall();
+session_start();
+if (!isset($_SESSION['idUsuario']) || $_SESSION['idUsuario'] != 1) {
+    header("Location: fazerLogin.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restrita ADM</title>
+    <title>ADM</title>
 </head>
 <body>
-    <h1>Itens perdidos</h1>
     
-    <a href = "formCadItem.php" >Cadastra item</a>
 </body>
 </html>

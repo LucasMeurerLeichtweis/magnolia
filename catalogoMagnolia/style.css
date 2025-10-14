@@ -1,0 +1,275 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    border-bottom: 2px solid black;
+    background-color: #000;
+}
+a{
+    background-color: #fff;
+    border: 10px;
+    border-color: #fff;
+    border-style: solid;
+    border-radius: 20px;
+    color: black;
+    font-weight: bold;
+}
+.logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+header h1 {
+    position: absolute;     
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    color: #fff;
+    margin: 0;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    background-color: #fff;
+    color: #000;
+    border: 10px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #333;
+}
+
+main {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+aside {
+    height: 100vh;
+    width: 250px;
+    background-color: #000000;
+    border-right: 2px solid #ddd;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+aside h2 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+aside li {
+    margin: 12px 0;
+}
+
+aside a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s;
+    border-style: none;
+    background-color: #000;
+}
+
+aside a:hover {
+    color: #555;
+}
+aside .verTodos {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 750;
+    transition: color 0.3s;
+    border-style: none;
+    background-color: #000;
+}
+
+aside .verTodos:hover {
+    color: #555;
+}
+
+section{
+  height:100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  border-color: #fff;
+  border-top-style:solid;
+  border-width: 2px;
+}
+
+section h1 {
+    margin-top: 0;
+    font-size: 28px;
+    color: #000;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.item {
+    background: #f3f3f3;
+    border: 1px solid #ccc;
+    padding: 20px;
+    flex: 1 1 200px;
+    box-sizing: border-box;
+}
+
+.formulario{
+  width: 400px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+  border: 1px solid white;
+  padding: 25px;
+  align-items: center;
+
+}
+
+.formulario img{
+    display: flex;
+    margin: none;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  color: #fff;
+  width: 100%;
+}
+
+.groupBack {
+  display: flex;
+  flex-direction: column;
+  margin: 100px 0 0 0;
+  color: #fff;
+  width: 100%;
+
+}
+
+label{
+  flex: 1;
+}
+
+.campo {
+  padding: 8px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #fff;
+  font-size: 1rem;
+}
+.campo:focus {
+  outline: none;
+  border-color: #ccc;
+}
+
+
+.group_submit{
+  display:flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+input[type=submit] {
+  width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+input[type=submit]:hover {
+  background-color: #ccc;
+}
+
+.formulario a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s;
+    border-style: none;
+    background-color: #000;
+    margin: 10px;
+}
+
+.formulario a:hover {
+    color: #555;
+}
+p{
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s;
+    border-style: none;
+    background-color: #000;
+    margin: 10px;
+}
+.perfil{
+  width: 400px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+  border: 1px solid white;
+  padding: 25px;
+  align-items: center;
+
+}
+
+.perfil img{
+    display: flex;
+    margin: none;
+}
+.perfil .group{
+    text-align: center;
+}
+
+.perfil .groupBack{
+    text-align: center;
+}

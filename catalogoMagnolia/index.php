@@ -1,24 +1,73 @@
 <?php
-require_once __DIR__."/classes/Item.php";
-$itens = Item::findall();
+require_once __DIR__ . "\classe\Categoria.php";
+require_once __DIR__ . "\classe\Produto.php";
+$categorias = Categoria::findall();
+$produtos = Produto::findall();
+
+if(isset($_GET['idCategoria'])){
+    
+    $produtos = Produto::findAllByCategoria($_GET['idCategoria']);
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mural de achados e perdidos</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Magnólia</title>
 </head>
 <body>
-    <h1>Itens perdidos</h1>
-    <?php
-    foreach( $itens as $item ){
-        if ($item -> status ==1){
-            echo"{$item -> descricao} - {$item -> local} - {$item -> data}";
-            echo "<br>";
-        }
-    }
-    ?>
-    <a href = "fazerLogin.php" >Fazer Login<
+    
+    <header class='head'>
+        <img src="arquivos/logo.png" alt="Logo Magnolia" class="logo">
+        <h1>Catálogo Magnólia</h1>
+        <div class="header-right">
+            <?php
+                session_start();
+                if (!isset($_SESSION['idUsuario'])) {
+                    echo '<a href="fazerLogin.php">Entrar</a>';
+                } else {
+                    if ($_SESSION['idUsuario'] == 1) {
+                        echo '<a href="restrita.php">Cadastrar Item</a>';
+                    }
+                    echo '<a href="verPerfil.php">Olá '.htmlspecialchars($_SESSION["nome"]). '!</a>';
+                }
+            ?>
+        </div>
+    </header>
+         
+
+    <main>
+        <aside>
+            <h2>Categorias:</h2>
+            <?php
+
+            echo "<ul>";
+                echo '<li><a href="index.php?idCategoria=0" class="verTodos">Ver todos</a></li>';
+                foreach($categorias as $categoria){
+                    echo "<li>
+                        <a href='index.php?idCategoria={$categoria->getIdCategoria()}'>{$categoria->getNome()}</a>
+                    </li>";
+                }
+            echo "</ul>";
+            ?>
+        </aside>
+
+
+        <section>
+            
+            <div class='container'>
+
+                <?php
+                    foreach($produtos as $produto){
+                        Echo '<div class="item"></div>';
+                    }
+                ?>
+            </div>
+            
+        </section>
+    </main>
+
 </body>
 </html>
