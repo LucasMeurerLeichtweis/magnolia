@@ -130,6 +130,13 @@ class Imagem {
         $sql = "UPDATE imagem SET fotoCapa = 0 WHERE idProduto = {$this->idProduto}";
         return $conexao->executa($sql);
     }
+    public static function ocultarByProduto(int $idProduto): bool {
+    $conexao = new MySQL();
+    $sql = "UPDATE imagem SET fotoCapa = 0 WHERE idProduto = {$idProduto}";
+    return $conexao->executa($sql);
+    }
+
+
 
     public function update(): bool {
         $conexao = new MySQL();
@@ -137,6 +144,12 @@ class Imagem {
                 SET imagem = '{$this->imagem}', 
                     fotoCapa = '{$this->fotoCapa}'
                 WHERE idImagem = {$this->idImagem}";
+        return $conexao->executa($sql);
+    }
+
+    public static function deleteByProduto($idProduto): bool {
+        $conexao = new MySQL();
+        $sql = "DELETE FROM imagem WHERE idProduto = {$idProduto}";
         return $conexao->executa($sql);
     }
 }

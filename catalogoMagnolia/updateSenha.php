@@ -36,7 +36,7 @@ if(isset($_POST['button'])){
     <title>Mudar Senha</title>
 </head>
 <body>
-    <section>
+    <section class='janela'>
         <div class="formulario">
             <img src="arquivos/logo.png" alt="Logo Magnolia" class="logo">
 

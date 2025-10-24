@@ -9,7 +9,7 @@ class Aroma {
 
     public function __construct(
         private string $nome,
-        private string $descricao
+        private string $descricaoAroma
     ) {
 
     }
@@ -20,8 +20,8 @@ class Aroma {
     public function getNome(): string {
          return $this->nome; 
         }
-    public function getDescricao(): string {
-         return $this->descricao; 
+    public function getDescricaoAroma(): string {
+         return $this->descricaoAroma; 
         }
 
     public function setIdAroma(int $idAroma): void {
@@ -30,24 +30,24 @@ class Aroma {
     public function setNome(string $nome): void {
          $this->nome = $nome; 
         }
-    public function setDescricao(string $descricao): void {
-         $this->descricao = $descricao; 
+    public function setDescricaoAroma(string $descricaoAroma): void {
+         $this->descricaoAroma = $descricaoAroma; 
         }
 
     public function save(): bool {
         $conexao = new MySQL();
-        $sql = "INSERT INTO aroma (nome, descricao) VALUES ('{$this->nome}', '{$this->descricao}')";
+        $sql = "INSERT INTO aroma (nome, descricaoAroma) VALUES ('{$this->nome}', '{$this->descricaoAroma}')";
         return $conexao->executa($sql);
     }
 
     public static function findAll(): array {
         $conexao = new MySQL();
-        $sql = "SELECT * FROM aroma";
+        $sql = "SELECT * FROM aroma ORDER BY nome ASC";
         $resultados = $conexao->consulta($sql);
         $aromas = [];
 
         foreach ($resultados as $resultado) {
-            $a = new Aroma($resultado['nome'], $resultado['descricao']);
+            $a = new Aroma($resultado['nome'], $resultado['descricaoAroma']);
             $a->setIdAroma($resultado['idAroma']);
             $aromas[] = $a;
         }
@@ -62,7 +62,7 @@ class Aroma {
 
         if (!empty($resultados)) {
             $resultado = $resultados[0];
-            $a = new Aroma($resultado['nome'], $resultado['descricao']);
+            $a = new Aroma($resultado['nome'], $resultado['descricaoAroma']);
             $a->setIdAroma($resultado['idAroma']);
             return $a;
         }
@@ -72,7 +72,7 @@ class Aroma {
 
     public function update(): bool {
         $conexao = new MySQL();
-        $sql = "UPDATE aroma SET nome = '{$this->nome}', descricao = '{$this->descricao}' WHERE idAroma = {$this->idAroma}";
+        $sql = "UPDATE aroma SET nome = '{$this->nome}', descricaoAroma = '{$this->descricaoAroma}' WHERE idAroma = {$this->idAroma}";
         return $conexao->executa($sql);
     }
 

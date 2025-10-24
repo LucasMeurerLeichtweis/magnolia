@@ -11,7 +11,7 @@ class MySQL{
 		$this->connection->set_charset("utf8");
 	}
 
-	public function executa($sql){
+	public function executa($sql): bool|mysqli_result{
 		$result = $this->connection->query($sql);
 		return $result;
 	}
@@ -24,5 +24,11 @@ class MySQL{
 		}
 		return $data;
 		}
+
+	public function getUltimoIdInserido(): int {
+    	return $this->connection->insert_id; 
+    }	
 	}
+
+	
 ?>

@@ -4,6 +4,7 @@ require_once __DIR__ . "\classe\Usuario.php";
 session_start();
 if(!isset($_SESSION['idUsuario'])){
     header("location:index.php");
+    exit();
 }
 
 ?>
@@ -16,7 +17,7 @@ if(!isset($_SESSION['idUsuario'])){
     <title>Perfil</title>
 </head>
 <body>
-    <section>
+    <section class='janela'>
         <div class='perfil'>
             <img src="arquivos/logo.png" alt="Logo Magnolia" class="logo">
 

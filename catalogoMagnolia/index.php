@@ -5,8 +5,13 @@ $categorias = Categoria::findall();
 $produtos = Produto::findall();
 
 if(isset($_GET['idCategoria'])){
-    
-    $produtos = Produto::findAllByCategoria($_GET['idCategoria']);
+    if($_GET['idCategoria']==0){
+        $produtos = Produto::findall();
+
+    }else{
+        $produtos = Produto::findAllByCategoria($_GET['idCategoria']);
+        
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -56,7 +61,13 @@ if(isset($_GET['idCategoria'])){
 
 
         <section>
-            
+
+            <?php 
+            $categoria = Categoria::find($_GET['idCategoria']);
+            echo "<p>".$categoria->getDescricaoCategoria()."</p>";            
+            ?>
+
+            <p></p>
             <div class='container'>
 
                 <?php

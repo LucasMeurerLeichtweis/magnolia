@@ -91,6 +91,7 @@ class Usuario{
         return $this->save();
     }
     return false;
-}
+    
+    }
 
 }

@@ -7,7 +7,7 @@ class Categoria {
     private int $idCategoria;
    
 
-    public function __construct(private string $nome) {
+    public function __construct(private string $nome, private string $descricaoCategoria) {
     }
 
     public function getIdCategoria(): int {
@@ -18,6 +18,10 @@ class Categoria {
         return $this->nome;
     }
 
+    public function getDescricaoCategoria(): string {
+        return $this->descricaoCategoria;
+    }
+
     public function setIdCategoria(int $idCategoria): void {
         $this->idCategoria = $idCategoria;
     }
@@ -26,20 +30,24 @@ class Categoria {
         $this->nome = $nome;
     }
 
+    public function setDescricaoCategoria(string $descricaoCategoria): void {
+        $this->descricaoCategoria = $descricaoCategoria;
+    }
+
     public function save(): bool {
         $conexao = new MySQL();
-        $sql = "INSERT INTO categoria (nome) VALUES ('{$this->nome}')";
+        $sql = "INSERT INTO categoria (nome, descricaoCategoria) VALUES ('{$this->nome}', '{$this->descricaoCategoria}')";
         return $conexao->executa($sql);
     }
 
     public static function findAll(): array {
         $conexao = new MySQL();
-        $sql = "SELECT * FROM categoria";
+        $sql = "SELECT * FROM categoria ORDER BY nome ASC";
         $resultados = $conexao->consulta($sql);
         $categorias = [];
 
         foreach ($resultados as $resultado) {
-            $c = new Categoria($resultado['nome']);
+            $c = new Categoria($resultado['nome'], $resultado['descricaoCategoria']);
             $c->setIdCategoria($resultado['idCategoria']);
             $categorias[] = $c;
         }
@@ -54,7 +62,7 @@ class Categoria {
 
         if (!empty($resultados)) {
             $resultado = $resultados[0];
-            $c = new Categoria($resultado['nome']);
+            $c = new Categoria($resultado['nome'], $resultado['descricaoCategoria']);
             $c->setIdCategoria($resultado['idCategoria']);
             return $c;
         }
@@ -64,7 +72,7 @@ class Categoria {
 
     public function update(): bool {
         $conexao = new MySQL();
-        $sql = "UPDATE categoria SET nome = '{$this->nome}' WHERE idCategoria = {$this->idCategoria}";
+        $sql = "UPDATE categoria SET nome = '{$this->nome}', descricaoCategoria = '{$this->descricaoCategoria}' WHERE idCategoria = {$this->idCategoria}";
         return $conexao->executa($sql);
     }
 

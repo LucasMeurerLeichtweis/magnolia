@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . "\..\bd\MySQL.php";
-
+require_once __DIR__ ."\Categoria.php";
 class Produto {
 
     private int $idProduto;
@@ -64,34 +64,42 @@ class Produto {
     }
 
 
+
     public function save(): bool {
-        $conexao = new MySQL();
-        $sql = "INSERT INTO produto (nome, descricaoProduto, preco, idCategoria, status) 
-                VALUES (
-                    '{$this->nome}', 
-                    '{$this->descricaoProduto}', 
-                    '{$this->preco}',  
-                    '{$this->idCategoria}', 
-                    '{$this->status}'
-                )";
-        return $conexao->executa($sql);
-    }
-
-    public static function findAll(): array {
     $conexao = new MySQL();
-        $sql = "SELECT * FROM produto_aroma";
-        $resultados = $conexao->consulta($sql);
-        $produtoAromas = [];
+    $sql = "INSERT INTO produto (nome, descricaoProduto, preco, idCategoria, status) 
+            VALUES (
+                '{$this->nome}', 
+                '{$this->descricaoProduto}', 
+                '{$this->preco}',  
+                '{$this->idCategoria}', 
+                '{$this->status}'
+            )";
+        $executou = $conexao->executa($sql);
 
-        foreach ($resultados as $resultado) {
-            $pa = new ProdutoAroma(
-                $resultado['idProduto'],
-                $resultado['idAroma']
-            );
-            $produtoAromas[] = $pa;
+        if ($executou) {
+            $this->idProduto = $conexao->getUltimoIdInserido();
+            return true;
         }
 
-        return $produtoAromas;
+        return false;
+    }
+
+
+    public static function findAll(): array {
+        $conexao = new MySQL();
+        $sql = "SELECT * FROM produto ORDER BY nome ASC";
+        $resultados = $conexao->consulta($sql);
+        $produtos = [];
+
+        foreach ($resultados as $resultado) {
+            $p = new Produto($resultado['nome'], $resultado['descricaoProduto'], $resultado['preco'],$resultado['status']);
+            $p->setIdProduto($resultado['idProduto']);
+            $p->setIdCategoria($resultado['idCategoria']);
+            $produtos[] = $p;
+        }
+
+        return $produtos;
     }
 
 
@@ -161,4 +169,11 @@ class Produto {
                 WHERE idProduto = {$this->idProduto}";
         return $conexao->executa($sql);
     }
+
+    public static function deleteByIdProduto(int $idProduto): bool {
+    $conexao = new MySQL();
+    $sql = "DELETE FROM produto WHERE idProduto = {$idProduto}";
+    return $conexao->executa($sql);
+    }
+
 }

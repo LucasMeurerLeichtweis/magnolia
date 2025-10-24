@@ -50,6 +50,18 @@ class ProdutoAroma {
         return $produtoAromas;
     }
 
+    public static function findByProdutoAromas(int $idProduto): array {
+        $conexao = new MySQL();
+        $sql = "SELECT * FROM produto_aroma WHERE idProduto = {$idProduto}";
+        $resultados = $conexao->consulta($sql);
+        $produtoAromas = [];
+
+        foreach ($resultados as $resultado) {
+            $produtoAromas[] = $resultado['idAroma'];
+        }
+        return $produtoAromas;
+    }    
+
 
     public static function findByProduto(int $idProduto): array {
         $conexao = new MySQL();
@@ -66,6 +78,11 @@ class ProdutoAroma {
     public function delete(): bool {
         $conexao = new MySQL();
         $sql = "DELETE FROM produto_aroma WHERE idProduto = {$this->idProduto} AND idAroma = {$this->idAroma}";
+        return $conexao->executa($sql);
+    }
+    public static function deleteByProduto(int $idProduto): bool {
+        $conexao = new MySQL();
+        $sql = "DELETE FROM produto_aroma WHERE idProduto = {$idProduto}";
         return $conexao->executa($sql);
     }
 }

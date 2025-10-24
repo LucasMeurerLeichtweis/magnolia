@@ -21,7 +21,7 @@ if(isset($_POST['button'])){
     <title>Fazer login</title>
 </head>
 <body>
-    <section>
+    <section class='janela'>
     <div class="formulario">
     <img src="arquivos/logo.png" alt="Logo Magnolia" class="logo">
     <form method= "POST" action ="fazerLogin.php">
@@ -40,7 +40,7 @@ if(isset($_POST['button'])){
             <input type=submit name=button value="Entrar" >
         </div>   
     </form>
-        <a href="formCadUsuario.php">Cadastrar perfil</a>
+        <a href="cadUsuario.php">Cadastrar perfil</a>
         <a href="index.php">Voltar</a>
     </div>
     </section>    

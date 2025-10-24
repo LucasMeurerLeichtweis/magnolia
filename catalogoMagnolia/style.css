@@ -19,8 +19,9 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 10px 30px;
-    border-bottom: 2px solid black;
     background-color: #000;
+    height: 15vh;
+    box-sizing: border-box;
 }
 a{
     background-color: #fff;
@@ -69,16 +70,21 @@ button:hover {
 main {
     display: flex;
     flex: 1;
+    justify-content: baseline;
     min-height: 0;
+    min-height: 85vh;
+    border-bottom: 0;
 }
 
 aside {
-    height: 100vh;
-    width: 250px;
+    max-height: 100vh;
+    width: 30vw;
     background-color: #000000;
     border-right: 2px solid #ddd;
     padding: 20px;
     box-sizing: border-box;
+    overflow-y: auto;
+    border-bottom: 0;
 }
 
 aside h2 {
@@ -123,16 +129,28 @@ aside .verTodos:hover {
 }
 
 section{
-  height:100vh;
+  padding-top: 0vh;
+  margin-top: 0;
+  height: 100%;
   width: 100vw;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  background-color: #000;
+  justify-content: center;
+  background-color: #000000;
   border-color: #fff;
   border-top-style:solid;
-  border-width: 2px;
+  border-width: 1px;
+  box-sizing: border-box;
+  border-top: 1px solid #fff;
+  border-bottom: none;
+  overflow: hidden;
+
 }
+.janela{
+  height: 100%;
+}
+
 
 section h1 {
     margin-top: 0;
@@ -154,29 +172,20 @@ section h1 {
     box-sizing: border-box;
 }
 
-.formulario{
-  width: 400px;
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  background-color: #000;
-  border: 1px solid white;
-  padding: 25px;
-  align-items: center;
-
-}
-
-.formulario img{
-    display: flex;
-    margin: none;
-}
-
 .group {
   display: flex;
   flex-direction: column;
   margin: 10px 0;
   color: #fff;
   width: 100%;
+}
+.groupleft {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  color: #fff;
+  width: 500px;
+
 }
 
 .groupBack {
@@ -228,6 +237,23 @@ input[type=submit]:hover {
   background-color: #ccc;
 }
 
+.formulario{
+  width: 400px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+  border: 1px solid white;
+  padding: 25px;
+  align-items: center;
+}
+
+.formulario img{
+    display: flex;
+    margin: none;
+
+}
+
 .formulario a{
     text-decoration: none;
     color: #fff;
@@ -272,4 +298,153 @@ p{
 
 .perfil .groupBack{
     text-align: center;
+}
+
+.itemControl{
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s;
+    border-style: none; 
+    background-color: #000;
+}
+
+.formularioItem{
+  width: 80vw;
+  height: calc(100vh - 15vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: start ;
+  background-color: #000;
+  box-sizing: border-box;
+  align-items: center;
+
+}
+
+.formularioItem img{
+    display: flex;
+    margin: none;
+    width: 300px;
+    height: auto;
+}
+
+.formularioItem a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s;
+    border-style: none;
+    background-color: #000;
+    margin: 10px;
+}
+
+.formularioItem a:hover {
+    color: #555;
+}
+
+.group_submit input{
+  margin: 5px;
+}
+
+select{
+  background-color: #000;
+}
+option{
+  background-color: #000;
+}
+.scroll {
+  max-height: 85vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.asideLimite{
+  max-height: 100vh;
+}
+
+.formularioProduto{
+  overflow-y: auto;
+  width: 80vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #000000;
+  border: 1px solid white;
+  align-items: center;
+}
+
+.formularioProduto img{
+    display: flex;
+    margin: none;
+    width: 300px;
+    height: auto;
+}
+
+.formularioProduto a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s;
+    border-style: none;
+    background-color: #000;
+    margin: 10px;
+}
+
+.formularioProduto a:hover {
+    color: #555;
+}
+
+.multiselect {
+  position: relative;
+  width: 100%;
+}
+
+.select-box {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  background-color: #000;
+  cursor: pointer;
+}
+
+.options {
+  display: none;
+  position: absolute;
+  width: 100%;
+  background-color: #000;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.option {
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.option:hover {
+  background-color: #f2f2f2;
+}
+.preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.preview-table th, .preview-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+  color: white;
+}
+
+.preview-table img {
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }

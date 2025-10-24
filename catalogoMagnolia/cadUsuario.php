@@ -22,7 +22,7 @@ if(isset($_POST['button'])){
     <title>Cadatro</title>
 </head>
 <body>
-    <section>
+    <section class='janela'>
     <div class="formulario">
     <img src="arquivos/logo.png" alt="Logo Magnolia" class="logo">
     <form method= "POST" action ="formCadUsuario.php">
