@@ -426,9 +426,25 @@
             tbody.appendChild(row);
 
             row.querySelector('.remove-existing-btn').addEventListener('click', () => {
-                existingImages.splice(idx, 1);
-                renderTable();
-            });
+    if (confirm('Deseja realmente excluir esta imagem?')) {
+        // Remove visualmente
+        existingImages = existingImages.filter(imgItem => imgItem.idImagem !== img.idImagem);
+        renderTable();
+
+        // Chama exclusão no servidor
+        console.log('Iniciando requisição de exclusão...', img.idImagem);
+        fetch('deletaImagem.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `idImagem=${img.idImagem}`
+        })
+        .then(response => response.text())
+        .then(res => console.log('Servidor:', res))
+        .catch(err => console.error('Erro ao excluir:', err));
+
+        console.log('Fetch disparado!');
+    }
+});
         });
 
         // Renderiza novas imagens

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "\classe\Categoria.php";
 require_once __DIR__ . "\classe\Produto.php";
+require_once __DIR__ . "\classe\Imagem.php";
 $categorias = Categoria::findall();
 $produtos = Produto::findall();
 
@@ -60,23 +61,39 @@ if(isset($_GET['idCategoria'])){
         </aside>
 
 
-        <section>
-
+        <section class="index">
+            <header>
             <?php 
-            $categoria = Categoria::find($_GET['idCategoria']);
-            echo "<p>".$categoria->getDescricaoCategoria()."</p>";            
+            if (isset($_GET['idCategoria']) && $_GET['idCategoria'] != 0) {
+                $categoria = Categoria::find($_GET['idCategoria']);
+                echo "<div><h1>".$categoria->getNome()."</h1></div>
+                <div><p>".$categoria->getDescricaoCategoria()."</p></div>"; 
+            }else{
+                 echo "<div><h1>Ver Todos</h1></div>
+                 <p>Encontre aqui o produto ideal para você!</p>";
+            }
             ?>
-
-            <p></p>
-            <div class='container'>
-
-                <?php
-                    foreach($produtos as $produto){
-                        Echo '<div class="item"></div>';
-                    }
-                ?>
-            </div>
+            </header>
             
+                    <?php if (count($produtos) != 0): ?>
+                    <div class="containerIndex">
+                        <?php foreach ($produtos as $produto): 
+                            $img = Imagem::findFotoCapaById($produto->getIdProduto()); ?>
+                            <div class="item">
+                                <img src="arquivos/produtos/<?= $img->getImagem(); ?>" alt="<?= $img->getImagem(); ?>">
+                                <h3><?= $produto->getNome(); ?></h3>
+                                <h4>R$ <?= number_format($produto->getPreco(), 2, ",", "."); ?></h4>
+                                <button type="button" onclick="window.location.href='viewProduto.php?idProduto=<?= $produto->getIdProduto(); ?>'">
+                                    Ver Produto
+                                </button>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="containerIndex1">
+                        <h2>Ops... Parece que ainda não temos produtos nesta categoria, volte em breve!</h2>
+                    </div>
+                <?php endif; ?>    
         </section>
     </main>
 

@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "\..\bd\MySQL.php";
 require_once __DIR__ ."\Categoria.php";
+require_once __DIR__ ."\Imagem.php";
 class Produto {
 
     private int $idProduto;

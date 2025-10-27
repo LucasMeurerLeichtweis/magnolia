@@ -59,6 +59,16 @@ class Imagem {
         return $conexao->executa($sql);
     }
 
+        public static function find($idImagem):Imagem{
+        $conexao = new MySQL();
+        $sql = "SELECT * FROM imagem WHERE idImagem = {$idImagem}";
+        $resultado = $conexao->consulta($sql);
+        $i = new Imagem($resultado[0]['imagem'],$resultado[0]['fotoCapa']);
+        $i->setIdImagem($resultado[0]['idImagem']);
+        $i->setIdProduto($resultado[0]['idProduto']);
+        return $i;
+        }    
+
     public static function findAll(): array {
         $conexao = new MySQL();
         $sql = "SELECT * FROM imagem";
@@ -121,6 +131,10 @@ class Imagem {
 
     public function delete(): bool {
         $conexao = new MySQL();
+        $caminho = __DIR__ . "/../arquivos/produtos/" . $this->getImagem();
+        if (file_exists($caminho)) {
+            unlink($caminho);
+        }
         $sql = "DELETE FROM imagem WHERE idImagem = {$this->idImagem}";
         return $conexao->executa($sql);
     }
