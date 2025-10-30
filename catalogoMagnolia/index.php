@@ -27,7 +27,9 @@ if(isset($_GET['idCategoria'])){
     
     <header class='head'>
         <img src="arquivos/logo.png" alt="Logo Magnolia" class="logo">
-        <h1>Catálogo Magnólia</h1>
+        <div class="header-center">
+            <h1>Catálogo Magnólia</h1>
+        </div>
         <div class="header-right">
             <?php
                 session_start();

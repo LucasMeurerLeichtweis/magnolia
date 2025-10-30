@@ -134,7 +134,7 @@
         <body>
             
             <header class='head'>
-                <img src="arquivos/logo.png" alt="Logo Magnolia" class="logo">
+                <a href="index.php" class="backBlack"><img src="arquivos/logo.png" alt="Logo Magnolia" class="logo"></a>
                 <h1>Controle de Produtos</h1>
                 <div class="header-right">
                     <a href="restrita.php">Voltar</a>
@@ -254,26 +254,7 @@
                             </tr>
                         </thead>
                         <tbody>';
-                        //Chamada das imagens já cadastradas:
-    /*
-                        $imagens = Imagem::findAllByProduto($idProduto);
-                        foreach ($imagens as $imagem) {
-                            if($imagem->getFotoCapa() == 1){
-                                echo"<tr>
-                                <td><img src='arquivos/produtos/".$imagem->getImagem()."' width='100' alt='".$imagem->getImagem()."'></td>
-                                <td><input type='radio' value=".$imagem->getIdImagem()." checked name='fotoCapa'></td>
-                                <td><button type='button' onclick='window.location.href=\"formProduto.php?idProduto=" . $idProduto . "&excluir=" . $imagem->getIdImagem() . "\"'>Excluir</button></td>
-                                </tr>";
-                            }else{
-                                echo'<tr>
-                                <td><img src="arquivos/produtos/'.$imagem->getImagem().'" width="100" alt="Prévia"></td>
-                                <td><input type="radio" value='.$imagem->getIdImagem().' name="fotoCapa"></td>
-                                <td><button type="button" onclick="window.location.href=\'formProduto.php?idProduto=' . $idProduto . '&excluir=' . $imagem->getIdImagem() . '\'">Excluir</button></td>
-                                </tr>';
-                            }
-            
-                        }
-    */
+
 
                         echo '</tbody>
                     </table>';

@@ -46,7 +46,7 @@ if(isset($_POST['button'])){
 <body>
     
     <header class='head'>
-        <img src="arquivos/logo.png" alt="Logo Magnolia" class="logo">
+        <a href="index.php" class="backBlack"><img src="arquivos/logo.png" alt="Logo Magnolia" class="logo"></a>
         <h1>Controle de Categorias</h1>
         <div class="header-right">
             <a href="restrita.php">Voltar</a>

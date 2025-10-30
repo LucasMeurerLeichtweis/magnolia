@@ -1,4 +1,5 @@
 <?php
+$msg = "";
 if(isset($_POST['button'])){
     require_once __DIR__."/classe/Usuario.php";
     $u = new Usuario($_POST['email'],$_POST['senha']);
@@ -7,8 +8,7 @@ if(isset($_POST['button'])){
         exit();
         
     }else{
-        header("location: fazerLogin.php");
-        exit();
+        $msg='Usuario ou senha incorretos!';
     }
 }
 ?>
@@ -25,7 +25,7 @@ if(isset($_POST['button'])){
     <div class="formulario">
     <img src="arquivos/logo.png" alt="Logo Magnolia" class="logo">
     <form method= "POST" action ="fazerLogin.php">
-        
+        <a><?=$msg?></a>
         <div class="group">
             <label for=email>E-mail</label>
             <input id=email type=email name=email class=campo>
@@ -35,7 +35,7 @@ if(isset($_POST['button'])){
             <label for=senha>Senha</label>
             <input id=senha type=password name=senha required class=campo>
         </div>
-
+        
         <div class=group_submit>
             <input type=submit name=button value="Entrar" >
         </div>   
@@ -43,6 +43,7 @@ if(isset($_POST['button'])){
         <a href="cadUsuario.php">Cadastrar perfil</a>
         <a href="index.php">Voltar</a>
     </div>
+    
     </section>    
 </body>
 </html>

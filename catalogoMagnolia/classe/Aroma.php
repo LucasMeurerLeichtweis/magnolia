@@ -70,6 +70,7 @@ class Aroma {
         return null;
     }
 
+
     public function update(): bool {
         $conexao = new MySQL();
         $sql = "UPDATE aroma SET nome = '{$this->nome}', descricaoAroma = '{$this->descricaoAroma}' WHERE idAroma = {$this->idAroma}";
